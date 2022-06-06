@@ -1,0 +1,106 @@
+#include <stdio.h>
+#include <stdlib.h>
+
+typedef struct node{
+    int num;
+    
+    struct node *nxt;
+} NODE;
+
+
+void insert(int num, NODE *p, int *qt_node);
+void print_node(NODE *p, int *flag);
+void deallocate(NODE *p, int *flag);
+void search(int num, NODE *p);
+
+
+int main()
+{
+    NODE *list;
+    int exist = 0;
+    int target;
+    int count_node;
+    
+    list = malloc(sizeof(NODE));
+    list->nxt = NULL;
+
+    insert(10, list, &count_node);
+    insert(20, list, &count_node);
+    insert(30, list, &count_node);
+    
+    print_node(list, &exist);
+    
+    printf("Busca: ");
+    scanf("%d", &target);
+    
+    search(target, list, count_node);
+
+    return 0;
+}
+
+//insere novo nó na lista
+void insert(int num, NODE *p, int *qt_node){
+    NODE *new;
+    
+    new = malloc(sizeof(NODE));
+    
+    while(p->nxt != NULL){
+        p = p->nxt;
+    }
+    
+    new->num = num;
+    new->nxt = p->nxt;
+    p->nxt = new;
+    qt_node += 1;
+}
+
+//imprime o conteúdo que está no nó
+//passado como parâmetro
+void print_node(NODE *p, int *flag){
+    NODE *aux;
+    
+    aux = p->nxt;
+    
+    if(*flag == 1 || aux == NULL){
+        printf("Nao ha itens na lista!\n");
+    }
+    else{
+        while(p->nxt != NULL){
+            p = p->nxt;
+            printf("%d\n", p->num);
+        }
+    }
+}
+
+//libera a lista, desalocando-a da memória
+void deallocate(NODE *p, int *flag){
+    free(p);
+    *flag = 1;
+}
+
+//remove um nó da lista
+void remove_node(int num, NODE *p){
+    NODE *idx, *target;
+    
+    idx = p;
+    target = p->nxt;
+    
+    while(target != NULL && target->num != num){
+        idx = target;
+        target = target->nxt;
+    }
+    
+    if(target != NULL){
+        idx->nxt = target->nxt;
+        free(target);
+    }
+}
+
+void search(int num, NODE *p){
+    
+    while(p->num != num){
+        p = p->nxt;
+    }
+    
+    printf("resultado: %d\n", p->num);
+}
