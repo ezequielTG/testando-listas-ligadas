@@ -33,7 +33,7 @@ int main()
     printf("Busca: ");
     scanf("%d", &target);
     
-    search(target, list, count_node);
+    search(target, list);
 
     return 0;
 }
