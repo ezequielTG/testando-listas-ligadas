@@ -17,7 +17,7 @@ void search(int num, NODE *p);
 int main()
 {
     NODE *list;
-    int exist = 0;
+    int exist = 0; // variável que será passada como flag
     int target;
     int count_node;
     
@@ -73,6 +73,8 @@ void print_node(NODE *p, int *flag){
 }
 
 //libera a lista, desalocando-a da memória
+//e altera o valor da flag (exist) para 
+//identificar que a lista não existe mais
 void deallocate(NODE *p, int *flag){
     free(p);
     *flag = 1;
@@ -96,6 +98,9 @@ void remove_node(int num, NODE *p){
     }
 }
 
+
+//busca o nó que contenha o valor passado como parâmetro
+//e o imprime
 void search(int num, NODE *p){
     
     while(p->num != num){
